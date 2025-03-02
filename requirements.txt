@@ -1,0 +1,33 @@
+# Google Cloud dependencies
+google-cloud-storage==2.13.0
+google-cloud-logging==3.8.0
+google-cloud-functions==1.13.2
+functions-framework==3.4.0
+
+# Google Ads
+google-ads==22.1.0
+
+# Facebook/Instagram
+facebook-business==17.0.2
+
+# Bing Ads
+bingads==13.0.16
+
+# TikTok
+python-tiktok-ad==0.1.12
+
+# Amazon Ads
+amazon-advertising-api-sdk==1.0.0
+
+# Google Sheets
+gspread==5.12.0
+google-auth==2.23.4
+google-auth-oauthlib==1.1.0
+google-auth-httplib2==0.1.1
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+pydantic==2.5.2
+pytest==7.4.3
+pytest-mock==3.12.0

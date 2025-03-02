@@ -1,0 +1,49 @@
+{
+  "gcp": {
+    "project_id": "your-gcp-project-id",
+    "bucket_name": "your-gcs-bucket-name",
+    "region": "us-central1"
+  },
+  "google_ads": {
+    "client_id": "your-google-ads-client-id",
+    "client_secret": "your-google-ads-client-secret",
+    "refresh_token": "your-google-ads-refresh-token",
+    "developer_token": "your-google-ads-developer-token",
+    "login_customer_id": "your-google-ads-login-customer-id",
+    "customer_ids": ["customer-id-1", "customer-id-2"]
+  },
+  "facebook": {
+    "app_id": "your-facebook-app-id",
+    "app_secret": "your-facebook-app-secret",
+    "access_token": "your-facebook-access-token",
+    "account_id": "your-facebook-account-id"
+  },
+  "bing": {
+    "client_id": "your-bing-client-id",
+    "client_secret": "your-bing-client-secret",
+    "developer_token": "your-bing-developer-token",
+    "refresh_token": "your-bing-refresh-token",
+    "account_id": "your-bing-account-id"
+  },
+  "tiktok": {
+    "app_id": "your-tiktok-app-id",
+    "app_secret": "your-tiktok-app-secret",
+    "access_token": "your-tiktok-access-token",
+    "advertiser_id": "your-tiktok-advertiser-id"
+  },
+  "amazon": {
+    "client_id": "your-amazon-client-id",
+    "client_secret": "your-amazon-client-secret",
+    "refresh_token": "your-amazon-refresh-token",
+    "profile_id": "your-amazon-profile-id",
+    "region": "your-amazon-region"
+  },
+  "google_sheets": {
+    "credentials_file": "path-to-your-service-account-json",
+    "audience_library_id": "your-google-sheets-id",
+    "worksheet_name": "Audience Library"
+  },
+  "logging": {
+    "level": "INFO"
+  }
+}
