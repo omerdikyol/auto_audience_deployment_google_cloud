@@ -19,48 +19,26 @@ from src.utils.logging_setup import setup_logging
 # Setup logging
 logger = setup_logging()
 
-@functions_framework.http
-def process_audience(request):
+def process_audience_data(gcs_file_path, platforms, config):
     """
-    HTTP Cloud Function to process audience data from GCS and upload to ad platforms.
+    Process audience data from GCS and upload to ad platforms.
     
     Args:
-        request (flask.Request): The request object.
+        gcs_file_path (str): Path to the audience data file in GCS
+        platforms (List[str]): List of platforms to upload the audience to
+        config (Dict[str, Any]): Configuration dictionary
         
     Returns:
-        The response text, or any set of values that can be turned into a
-        Response object using `make_response`.
+        Dict[str, Any]: Result of the processing
     """
     try:
-        # Parse request data
-        request_json = request.get_json(silent=True)
-        
-        if not request_json:
-            logger.error("No JSON data in request")
-            return {"success": False, "error": "No JSON data in request"}, 400
-        
-        # Load configuration
-        config = load_config()
-        
-        # Extract parameters from request
-        gcs_file_path = request_json.get('gcs_file_path')
-        platforms = request_json.get('platforms', [])
-        
-        if not gcs_file_path:
-            logger.error("Missing required parameter: gcs_file_path")
-            return {"success": False, "error": "Missing required parameter: gcs_file_path"}, 400
-        
-        if not platforms:
-            logger.error("Missing required parameter: platforms")
-            return {"success": False, "error": "Missing required parameter: platforms"}, 400
-        
         # Download audience data from GCS
         logger.info(f"Downloading audience data from {gcs_file_path}")
         audience_data = download_audience_data(gcs_file_path, config)
         
         if not audience_data:
             logger.error(f"Failed to download audience data from {gcs_file_path}")
-            return {"success": False, "error": f"Failed to download audience data from {gcs_file_path}"}, 500
+            return {"success": False, "error": f"Failed to download audience data from {gcs_file_path}"}
         
         # Process each platform
         results = {}
@@ -110,8 +88,95 @@ def process_audience(request):
         }
     
     except Exception as e:
+        logger.exception(f"Unhandled exception in process_audience_data: {str(e)}")
+        return {"success": False, "error": str(e)}
+
+@functions_framework.http
+def process_audience(request):
+    """
+    HTTP Cloud Function to process audience data from GCS and upload to ad platforms.
+    
+    Args:
+        request (flask.Request): The request object.
+        
+    Returns:
+        The response text, or any set of values that can be turned into a
+        Response object using `make_response`.
+    """
+    try:
+        # Parse request data
+        request_json = request.get_json(silent=True)
+        
+        if not request_json:
+            logger.error("No JSON data in request")
+            return {"success": False, "error": "No JSON data in request"}, 400
+        
+        # Load configuration
+        config = load_config()
+        
+        # Extract parameters from request
+        gcs_file_path = request_json.get('gcs_file_path')
+        platforms = request_json.get('platforms', [])
+        
+        if not gcs_file_path:
+            logger.error("Missing required parameter: gcs_file_path")
+            return {"success": False, "error": "Missing required parameter: gcs_file_path"}, 400
+        
+        if not platforms:
+            logger.error("Missing required parameter: platforms")
+            return {"success": False, "error": "Missing required parameter: platforms"}, 400
+        
+        # Process the audience data
+        result = process_audience_data(gcs_file_path, platforms, config)
+        
+        # Check for errors
+        if not result.get('success') and 'error' in result:
+            return result, 500
+        
+        return result
+    
+    except Exception as e:
         logger.exception(f"Unhandled exception in process_audience: {str(e)}")
         return {"success": False, "error": str(e)}, 500
+
+@functions_framework.cloud_event
+def process_gcs_trigger(cloud_event):
+    """
+    Cloud Function triggered by a finalize/create event on a GCS bucket.
+    
+    Args:
+        cloud_event (CloudEvent): The CloudEvent that triggered the function.
+        
+    Returns:
+        None
+    """
+    try:
+        # Extract GCS file information from the CloudEvent
+        data = cloud_event.data
+        
+        bucket = data["bucket"]
+        name = data["name"]
+        
+        # Only process files in the audiences directory
+        if not name.startswith("audiences/") or not name.endswith(".json"):
+            logger.info(f"Ignoring non-audience file: gs://{bucket}/{name}")
+            return
+        
+        logger.info(f"Processing audience file from GCS trigger: gs://{bucket}/{name}")
+        
+        # Load configuration
+        config = load_config()
+        
+        # Use all available platforms by default for GCS triggers
+        platforms = ["google_ads", "facebook", "bing", "tiktok", "amazon"]
+        
+        # Process the audience data
+        result = process_audience_data(name, platforms, config)
+        
+        logger.info(f"GCS trigger processing result: {json.dumps(result)}")
+        
+    except Exception as e:
+        logger.exception(f"Error processing GCS trigger: {str(e)}")
 
 if __name__ == "__main__":
     # For local testing only
@@ -125,3 +190,23 @@ if __name__ == "__main__":
     
     response = simulate_http_request(process_audience, request_data)
     print(json.dumps(response, indent=2))
+    
+    # Example for testing GCS trigger
+    # Uncomment to test
+    """
+    from cloudevents.http import CloudEvent
+    
+    # Create a mock CloudEvent for GCS finalize
+    attributes = {
+        "type": "google.cloud.storage.object.v1.finalized",
+        "source": "//storage.googleapis.com/projects/_/buckets/test-bucket"
+    }
+    data = {
+        "bucket": "test-bucket",
+        "name": "audiences/test_audience.json",
+        "contentType": "application/json"
+    }
+    
+    event = CloudEvent(attributes, data)
+    process_gcs_trigger(event)
+    """

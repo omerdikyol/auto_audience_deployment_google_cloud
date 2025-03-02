@@ -1,0 +1,28 @@
+{
+  "schedules": [
+    {
+      "name": "daily_audience_update",
+      "description": "Daily update of all audiences across all platforms",
+      "schedule": "0 6 * * *",
+      "time_zone": "America/Los_Angeles",
+      "audience_file": "audiences/daily_update.json",
+      "platforms": ["google_ads", "facebook", "bing", "tiktok", "amazon"]
+    },
+    {
+      "name": "weekly_google_ads_refresh",
+      "description": "Weekly refresh of Google Ads audiences only",
+      "schedule": "0 7 * * MON",
+      "time_zone": "America/Los_Angeles",
+      "audience_file": "audiences/google_weekly.json",
+      "platforms": ["google_ads"]
+    },
+    {
+      "name": "monthly_facebook_refresh",
+      "description": "Monthly refresh of Facebook audiences only",
+      "schedule": "0 8 1 * *",
+      "time_zone": "America/Los_Angeles",
+      "audience_file": "audiences/facebook_monthly.json",
+      "platforms": ["facebook"]
+    }
+  ]
+}

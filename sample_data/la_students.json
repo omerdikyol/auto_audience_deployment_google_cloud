@@ -1,0 +1,56 @@
+{
+  "name": "LA Students",
+  "description": "Audience of students in the Los Angeles area",
+  "users": [
+    {
+      "email": "4b7f98562f05b293b2deb564c749f0e68a90cda0d4e62e074654f114b0a70969",
+      "phone": "b7b5f3f2f2a6c3e2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9",
+      "address": {
+        "first_name": "6f4dcc3b5aa765d61d8327deb882cf99",
+        "last_name": "6f4dcc3b5aa765d61d8327deb882cf99",
+        "country_code": "US",
+        "postal_code": "90001"
+      }
+    },
+    {
+      "email": "7550c8006c4632c8de33f1996c7a8a26e8c20879c5802b1c1af415fd4d65a7bc",
+      "phone": "c8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8",
+      "address": {
+        "first_name": "f10adc3949ba59abbe56e057f20f883e",
+        "last_name": "f10adc3949ba59abbe56e057f20f883e",
+        "country_code": "US",
+        "postal_code": "90002"
+      }
+    },
+    {
+      "email": "b1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1",
+      "phone": "d9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9",
+      "address": {
+        "first_name": "927ccb0eea8a706c4c34a16891f84e7b",
+        "last_name": "927ccb0eea8a706c4c34a16891f84e7b",
+        "country_code": "US",
+        "postal_code": "90003"
+      }
+    },
+    {
+      "email": "c2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+      "phone": "e0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0",
+      "address": {
+        "first_name": "35d55ad283aa400af464c76d713c07ad",
+        "last_name": "35d55ad283aa400af464c76d713c07ad",
+        "country_code": "US",
+        "postal_code": "90004"
+      }
+    },
+    {
+      "email": "d3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3",
+      "phone": "f1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1",
+      "address": {
+        "first_name": "gcea920f7412b5da7be0cf42b8c93759",
+        "last_name": "gcea920f7412b5da7be0cf42b8c93759",
+        "country_code": "US",
+        "postal_code": "90005"
+      }
+    }
+  ]
+}
