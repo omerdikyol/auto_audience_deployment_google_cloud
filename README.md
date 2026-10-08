@@ -1,10 +1,16 @@
-# Audience Deployment Automation System
+# Audience deployment on Google Cloud
 
-A serverless automation system built on Google Cloud Platform for deploying audience data to multiple advertising platforms. This system automatically processes audience data from JSON files stored in Google Cloud Storage and deploys them to various advertising platforms while maintaining a centralized audience library in Google Sheets.
+An integration prototype that reads audience JSON from Google Cloud Storage, dispatches it to advertising-platform adapters, and records results in Google Sheets. HTTP, storage-event, and scheduled entry points share the processing workflow.
+
+## Integration status
+
+The adapters are experimental. The mocked tests exercise orchestration, not successful uploads to every vendor. Validate each adapter against the relevant provider sandbox before deploying it; the Google Ads adapter currently needs a missing `datetime` import corrected.
+
+Start with [main.py](main.py) for the trigger flow, [sample_data](sample_data) for input examples, and [the deployment guide](docs/gcp_deployment.md) for infrastructure setup.
 
 ## Features
 
-- **Multi-Platform Support**: Deploy audiences to multiple advertising platforms:
+- Platform adapters included in the source:
   - Google Ads
   - Facebook Ads
   - Instagram Ads (via Facebook Marketing API)
@@ -16,10 +22,10 @@ A serverless automation system built on Google Cloud Platform for deploying audi
   - Automatic processing via GCS event triggers when new audience files are uploaded
   - Scheduled deployments using Cloud Scheduler
 - **Centralized Management**: Maintain an audience library in Google Sheets with deployment status
-- **Secure Configuration**: Environment variables and Secret Manager integration for API credentials
-- **Comprehensive Logging**: Detailed logging via Google Cloud Logging
-- **Error Handling**: Robust error handling and reporting
-- **Testing**: Unit tests for all components
+- Configuration through environment variables and Secret Manager integration
+- Logging through Google Cloud Logging
+- Error reporting for the processing workflow
+- Mocked tests for configuration, Storage, Sheets, and the entry-point workflow
 
 ## Project Structure
 
@@ -77,7 +83,7 @@ auto_audience_deployment_google_cloud/
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/omerdikyol/auto_audience_deployment_google_cloud.git
    cd auto_audience_deployment_google_cloud
    ```
 
