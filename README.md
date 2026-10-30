@@ -16,13 +16,7 @@ Start with [main.py](main.py) for the trigger flow, [sample_data](sample_data) f
 
 ## Features
 
-- Platform adapters included in the source:
-  - Google Ads
-  - Facebook Ads
-  - Instagram Ads (via Facebook Marketing API)
-  - Bing Ads
-  - TikTok Ads
-  - Amazon Ads
+- **Platform adapters** in the source: Google Ads, Facebook Ads, Instagram Ads (via the Facebook Marketing API), Bing Ads, TikTok Ads, Amazon Ads
 - **Flexible Triggering Options**:
   - HTTP API endpoints for on-demand audience deployment
   - Automatic processing via GCS event triggers when new audience files are uploaded
@@ -33,48 +27,20 @@ Start with [main.py](main.py) for the trigger flow, [sample_data](sample_data) f
 - Error reporting for the processing workflow
 - Mocked tests for configuration, Storage, Sheets, and the entry-point workflow
 
-## Project Structure
+## Project structure
 
-```
-auto_audience_deployment_google_cloud/
-├── config/                       # Configuration files
-│   ├── config.json.example       # Example configuration file
-│   └── scheduler_config.json.example # Example scheduler configuration
-├── docs/                         # Documentation
-│   ├── deployment.md             # General deployment guide
-│   └── gcp_deployment.md         # GCP-specific deployment instructions
-├── sample_data/                  # Sample audience data for testing
-│   ├── san_diego_teachers.json   # Sample audience data
-│   └── la_students.json          # Sample audience data
-├── scripts/                      # Utility scripts
-│   ├── deploy_function.sh        # Script to deploy Cloud Functions
-│   └── setup_cloud_scheduler.py  # Script to set up Cloud Scheduler jobs
-├── src/                          # Source code
-│   ├── platforms/                # Platform-specific integrations
-│   │   ├── amazon.py             # Amazon Ads integration
-│   │   ├── bing.py               # Bing Ads integration
-│   │   ├── facebook.py           # Facebook/Instagram Ads integration
-│   │   ├── google_ads.py         # Google Ads integration
-│   │   └── tiktok.py             # TikTok Ads integration
-│   ├── sheets/                   # Google Sheets integration
-│   │   └── audience_library.py   # Audience library management
-│   ├── storage/                  # GCS integration
-│   │   └── gcs.py                # GCS file operations
-│   └── utils/                    # Utility functions
-│       ├── config.py             # Configuration loading
-│       ├── local_testing.py      # Local testing utilities
-│       └── logging_setup.py      # Logging configuration
-├── tests/                        # Test files
-│   ├── test_config.py            # Tests for configuration loading
-│   ├── test_gcs.py               # Tests for GCS integration
-│   ├── test_main.py              # Tests for main Cloud Function
-│   └── test_sheets.py            # Tests for Google Sheets integration
-├── .env.example                  # Example environment variables file
-├── main.py                       # Main Cloud Function entry points
-├── README.md                     # This file
-├── requirements.txt              # Python dependencies
-└── run_tests.py                  # Test runner script
-```
+| Path | Contents |
+| --- | --- |
+| `main.py` | Cloud Function entry points (HTTP, GCS event, scheduled) |
+| `src/platforms/` | Adapters: `google_ads.py`, `facebook.py` (Facebook and Instagram), `bing.py`, `tiktok.py`, `amazon.py` |
+| `src/sheets/audience_library.py` | Audience library and deployment status in Google Sheets |
+| `src/storage/gcs.py` | GCS file operations |
+| `src/utils/` | Config loading, logging setup, local testing helpers |
+| `config/` | Example configuration and scheduler configuration |
+| `docs/` | `deployment.md` and `gcp_deployment.md` |
+| `sample_data/` | Example audience files (`san_diego_teachers.json`, `la_students.json`) |
+| `scripts/` | `deploy_function.sh`, `setup_cloud_scheduler.py` |
+| `tests/` | Mocked tests for config, GCS, Sheets, and the entry point; run with `run_tests.py` |
 
 ## Getting Started
 
