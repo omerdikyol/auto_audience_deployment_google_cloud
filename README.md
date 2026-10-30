@@ -1,4 +1,10 @@
-# Audience deployment on Google Cloud
+<h1 align="center">Audience deployment on Google Cloud</h1>
+
+<p align="center">
+  <img alt="language: Python" src="https://img.shields.io/badge/language-Python-3776AB">
+  <img alt="platform: Google Cloud" src="https://img.shields.io/badge/platform-Google%20Cloud-4285F4">
+  <img alt="status: prototype" src="https://img.shields.io/badge/status-prototype-yellow">
+</p>
 
 An integration prototype that reads audience JSON from Google Cloud Storage, dispatches it to advertising-platform adapters, and records results in Google Sheets. HTTP, storage-event, and scheduled entry points share the processing workflow.
 
